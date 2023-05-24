@@ -1,0 +1,9 @@
+name: mousetumornet
+contributions:
+  commands:
+    - id: mousetumornet.predict
+      title: Lung tumor detection
+      python_name: mousetumornet.napari_nnunet:NNUNetWidget
+  widgets:
+    - command: mousetumornet.predict
+      display_name: Lung tumor detection
