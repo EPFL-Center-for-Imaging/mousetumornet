@@ -32,14 +32,14 @@ The code requires `python>=3.9`, as well as `pytorch>=2.0`.
 Install from the repository:
 
 ```
-pip install git+https://gitlab.epfl.ch/center-for-imaging/nnunetv2-inference.git
+pip install git+https://gitlab.epfl.ch/center-for-imaging/mousetumornet.git
 ```
 
 or clone the repository and install with:
 
 ```
-git clone git+https://gitlab.epfl.ch/center-for-imaging/nnunetv2-inference.git
-cd nnuentv2-inference
+git clone git+https://gitlab.epfl.ch/center-for-imaging/mousetumornet.git
+cd mousetumornet
 pip install -e .
 ```
 
@@ -62,18 +62,18 @@ napari
 
 To open an image, use `File > Open files` or drag-and-drop an image into the viewer window. If you want to open medical image formats such as NIFTI directly, consider installing the [napari-medical-image-formats](https://pypi.org/project/napari-medical-image-formats/) plugin.
 
-Next, in the menu bar select `Plugins > nnunetv2-inference > nnUNetV2 detection`. Run the model on your selected image using the "Detect tumors" button.
+Next, in the menu bar select `Plugins > mousetumornet > Tumor detection`. Run the model on your selected image by pressing the "Detect tumors" button.
 
 ![Napari screenshot](images/napari-screenshot.png)
 
-To inspect the results, you can bring in a table representing the detected objects from `Plugins > nnunetv2-inference > Data table`. Clicking on the data table rows will focus the viewer on the selected object.
+To inspect the results, you can bring in a table representing the detected objects from `Plugins > napari-label-focus > Data table`. Clicking on the data table rows will focus the viewer on the selected object.
 
 ## Usage as a library
 
 You can use the model in just a few lines of code to produce a segmentation mask from an image (represented as a numpy array).
 
 ```
-from nnunetv2_inference import predict, postprocess
+from mousetumornet import predict, postprocess
 
 binary_mask = predict(your_image)
 instances_mask = postprocess(binary_mask)
@@ -81,8 +81,7 @@ instances_mask = postprocess(binary_mask)
 
 ## Usage as a CLI
 
-*Experimental feature*
-
+[To be updated]
 You can run inference on a batch of images in a given folder, as long as the images are saved in the [nnUNet dataset format](https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/dataset_format.md). For example:
 
 ```
@@ -100,7 +99,7 @@ nnUNetv2_predict -i input_folder -o output_folder
 
 ## Usage recommendation
 
-For use in a scientific context, we believe the model outputs should be considered as an initial guess for the segmentation and not as a definitive result. In its current stage, we believe that certain deviations in the the instrumentation, acquisition parameters, or morphology of the tumor nodules, among other things, can affect performance of the model. Therefore, the detections should always be reviewed by human experts and corrected when necessary.
+For use in a scientific context, we believe the model outputs should be considered as an initial guess for the segmentation and not as a definitive result. Certain deviations in the the instrumentation, acquisition parameters, or morphology of the tumor nodules, among other things, can affect performance of the model. Therefore, the detections should always be reviewed by human experts and corrected when necessary.
 
 ## Dataset
 
@@ -122,7 +121,7 @@ This model is licensed under the [BSD-3](LICENSE.txt) license.
 
 ## Carbon footprint of this project
 
-As per the online tool [*Green algorithms*](http://calculator.green-algorithms.org/), the footprint of training our model was estimated to be 105 g CO2e.
+As per the online tool [*Green algorithms*](http://calculator.green-algorithms.org/), the footprint of training the mouse tumor net model was estimated to be 105 g CO2e.
 
 ## Citing
 
