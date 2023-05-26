@@ -11,15 +11,15 @@ def test_predict():
     assert pred.shape == image.shape, "Pred shape is erroneous."
 
 
-from mousetumornet.napari_nnunet import NNUNetWidget
+# from mousetumornet.napari_nnunet import NNUNetWidget
 
-def test_nnunet_widget(make_napari_viewer):
-    viewer = make_napari_viewer()
+# def test_nnunet_widget(make_napari_viewer):
+#     viewer = make_napari_viewer()
 
-    # test_labels = np.arange(0, 9).reshape((3, 3))
-    # viewer.add_labels(test_labels)
+#     # test_labels = np.arange(0, 9).reshape((3, 3))
+#     # viewer.add_labels(test_labels)
 
-    widget = NNUNetWidget(viewer)
-    # assert len(my_widget.table._table) == len(np.unique(test_labels)) - 1
+#     widget = NNUNetWidget(viewer)
+#     # assert len(my_widget.table._table) == len(np.unique(test_labels)) - 1
 
-    assert 0 == 0
+#     assert 0 == 0

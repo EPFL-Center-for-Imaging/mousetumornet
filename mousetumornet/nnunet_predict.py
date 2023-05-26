@@ -45,7 +45,8 @@ def predict(image: np.ndarray) -> np.ndarray:
         "-d", "001",
         "-f", "0",
         "-c", "3d_fullres",
-        "-device", "cuda",
+        # "-device", "cuda",
+        "-device", "cpu",
         "--disable_tta"
     ])
 
@@ -79,6 +80,24 @@ def postprocess(segmentation: np.ndarray) -> np.ndarray:
     return segmentation
 
 
+def process_input_file(input_image_file):
+    import tifffile
+    from pathlib import Path
+    image = tifffile.imread(input_image_file)
+
+    # Assert some stuff about the image
+    # ...
+
+    pred = predict(image)
+    post = postprocess(pred)
+
+    pt = Path(input_image_file)
+    out_file_name = pt.parent / f'{pt.stem}_mask.tif'
+
+    tifffile.imwrite(out_file_name, post)
+    print('Wrote to ', out_file_name)
+
+
 def cli_predict_image():
     """Command-line entry point for model inference."""
     import argparse
@@ -87,37 +106,23 @@ def cli_predict_image():
     parser.add_argument('-i', type=str, required=True, help='Input image. Must be either a TIF or a NIFTI image file.')
     args = parser.parse_args()
 
+    # image_stem, image_ext = os.path.splitext(input_image_file)
     input_image_file = args.i
-    image_ext = os.path.splitext(input_image_file)[-1]
-    if image_ext in ['tif', 'tiff']:
-        import tifffile
-        image = tifffile.imread(input_image_file)
-    elif image_ext in ['nii.gz', 'nii']:
-        import nibabel
-        image = nibabel.read_image(input_image_file)
 
-    # Assert some stuff about the image
-    # ...
-
-    pred = predict(image)
-    post = postprocess(pred)
-
-    save_pred(post, output_file_name)
+    process_input_file(input_image_file)
 
 
 def cli_predict_folder():
-    pass
+    from pathlib import Path
+    import argparse
+    import glob
 
+    parser = argparse.ArgumentParser(description='Use this command to run inference in batch on a given folder.')
+    parser.add_argument('-i', type=str, required=True, help='Input folder. Must contain suitable TIF image files.')
+    args = parser.parse_args()
 
-if __name__ == "__main__":
-    # _, inp = sys.argv
-    # inp_path = Path(inp)
-    # name = inp_path.name
-    # parent = inp_path.parent
-    # pred_path = parent.parent / "predictions" / name
-    
-    import tifffile
-    image = tifffile.imread('sftp://wittwer@m00e04cc8bde0.dyn.epfl.ch/home/wittwer/data/amaia/1493.tif')
-    image_pred = predict(image)
-    print(image_pred.sum())
-    # # tifffile.imwrite(pred_path, image_pred)
+    input_folder = args.i
+
+    for input_image_file in glob.glob(str(Path(input_folder) / '*.tif')):
+        process_input_file(input_image_file)
+

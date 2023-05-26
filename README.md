@@ -8,24 +8,29 @@ We provide a neural network model for lung tumor nodule segmentation in mice. Th
 
 ![Introduction image](images/main_fig.png)
 
-This model is intended as a tool to facilitate the annotation of individual lung tumor nodules in mouse CT scans. The nnUNet model outputs a binary mask representing the foreground tumor class. In our pipeline, we further separate individual nodule instances by connected components labeling and remove small objects based on a minimum size threshold of 150 pixels.
+Our model is a tool intended to facilitate the annotation of individual lung tumor nodules in mouse CT scans. The U-net model outputs a binary mask representing the foreground tumor class. We then label individual nodule instances based on connected components.
 
-To use this model in your own work, please check that your use case fulfills the [input data requirements]() and that you have access to [suitable hardware](). Then, follow our [installation]() and [usage]() instructions.
+## Try the model on your data
+
+- [Check the input data requirements]()
+- [Check the hardware requirements]()
+- [Install our package]()
+- [Follow our usage instructions]()
 
 ## Input data requirements
 
 Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_requirements.md).
 
-**Sample data:** An example image is available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif).
+**Sample data:** A few example images from our training dataset are available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif). *The full training set is also there.*
 
 ## Hardware requirements
 
 Installing both PyTorch and TorchVision with CUDA support and using a modern GPU for inference is strongly recommended.
 
-We report the following runtimes for inference on our [example image]() size (...).
+We report the following runtimes for inference on our [example image](), which has a size of (...).
 
-- GPU - RTX 3060 (12 GB RAM): ~ X sec.
-- CPU: ~ X sec.
+- GPU - RTX 3060 (12 GB RAM): 12 sec.
+- CPU: 68 sec.
 
 ## Installation
 
@@ -49,7 +54,7 @@ pip install -e .
 
 ## Models
 
-The model weights (~230 MB) are automatically downloaded from Zenodo the first time you run inference. The model files are saved in the user home folder in the `.nnunet` directory.
+The model weights (~461 MB) are automatically downloaded from Zenodo the first time you run inference. The model files are saved in the user home folder in the `.nnunet` directory.
 
 Updated versions of the model trained on more annotated data are likely to be released in the future. As of June 2023, the available models are:
 
@@ -87,20 +92,30 @@ instances_mask = postprocess(binary_mask)
 
 ## Usage as a CLI
 
-[To be updated]
-You can run inference on a batch of images in a given folder, as long as the images are saved in the [nnUNet dataset format](https://github.com/MIC-DKFZ/nnUNet/blob/master/documentation/dataset_format.md). For example:
+Run inference on an image from the command-line. For example:
 
 ```
-input_folder/
-    ├── your_image_0000.nii.gz
-    ├── your_image_0001.nii.gz
-    ├── your_image_0002.nii.gz
-output_folder/
+mtn_predict_image -i /path/to/folder/image_001.tif/
 ```
-In this case, use: 
+Will save a mask next to the image:
+```
+folder/
+    ├── image_001.tif
+    ├── image_001_mask.tif
+```
+
+Run inference in batch on all images in a folder:
 
 ```
-nnUNetv2_predict -i input_folder -o output_folder
+mtn_predict_folder -i /path/to/folder/
+```
+Will produce:
+```
+folder/
+    ├── image_001.tif
+    ├── image_001_mask.tif
+    ├── image_002.tif
+    ├── image_002_mask.tif
 ```
 
 ## Usage from Docker
