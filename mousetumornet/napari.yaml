@@ -1,4 +1,5 @@
 name: mousetumornet
+display_name: Mouse tumor detection
 contributions:
   commands:
     - id: mousetumornet.predict
@@ -7,3 +8,7 @@ contributions:
   widgets:
     - command: mousetumornet.predict
       display_name: Lung tumor detection
+  sample_data:
+  - key: lung_ct
+    display_name: Mouse lung CT scan
+    uri: https://sandbox.zenodo.org/record/1205983/files/1493.tif

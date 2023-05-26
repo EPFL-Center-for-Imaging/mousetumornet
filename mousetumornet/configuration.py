@@ -1,0 +1,1 @@
+MIN_SIZE_PX = 150

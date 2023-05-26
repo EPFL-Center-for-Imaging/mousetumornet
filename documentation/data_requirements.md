@@ -23,3 +23,7 @@ We apply a quantile-based intensity normalization to each image independently as
 ## Image orientation
 
 The image axis order (ZYX, XYZ...) should not matter. We integrated random flipping, mirroring, and image transpose operations as augmentations during training.
+
+## Automatic evaluation of the input data integrity
+
+Is that possible?

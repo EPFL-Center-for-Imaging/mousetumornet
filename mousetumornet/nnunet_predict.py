@@ -9,20 +9,18 @@ from pooch import Unzip
 import scipy.ndimage as ndi
 import skimage.morphology
 
-from mousetumornet.paths import nnUNet_results
+from mousetumornet.configuration import MIN_SIZE_PX
 
-INPUT_FOLDER = nnUNet_results / "nnunet_tmp_input"
-OUTPUT_FOLDER = nnUNet_results / "nnunet_tmp_output"
+nnUNet_results = os.path.expanduser(
+    os.getenv(
+        "nnUNet_results", os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet")
+    )
+)
 
-MIN_SIZE_PX = 150
+os.environ["nnUNet_results"] = nnUNet_results
 
-from pathlib import Path
-
-nnunet_results_path = Path(__file__).parents[1] / "models"
-if not nnunet_results_path.exists():
-    os.mkdir(nnunet_results_path)
-
-os.environ["nnUNet_results"] = str(nnunet_results_path)
+INPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_input")
+OUTPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_output")
 
 def predict(image: np.ndarray) -> np.ndarray:
     """TODO"""
@@ -35,8 +33,8 @@ def predict(image: np.ndarray) -> np.ndarray:
         processor=Unzip(extract_dir=nnUNet_results)
     )
 
-    if not INPUT_FOLDER.exists(): os.makedirs(INPUT_FOLDER)
-    if not OUTPUT_FOLDER.exists(): os.makedirs(OUTPUT_FOLDER)
+    if not os.path.exists(INPUT_FOLDER): os.makedirs(INPUT_FOLDER)
+    if not os.path.exists(OUTPUT_FOLDER): os.makedirs(OUTPUT_FOLDER)
 
     nib.save(nib.Nifti1Image(image, None), os.path.join(INPUT_FOLDER, "img_0000.nii.gz"))
 
@@ -62,13 +60,13 @@ def predict(image: np.ndarray) -> np.ndarray:
 
 def postprocess(segmentation: np.ndarray) -> np.ndarray:
     """Connected components labelling and holes-filling"""
-    segmentation = segmentation.astype('uint8')
+    segmentation = segmentation.astype('uint16')
 
     ndi.label(segmentation, output=segmentation)
     skimage.morphology.remove_small_objects(segmentation, min_size=MIN_SIZE_PX, out=segmentation)
     ndi.label(segmentation, output=segmentation)
 
-    # Fill holes in Z slices
+    # Fill holes in each Z slice
     for label_index in range(1, np.max(segmentation)):
         lab_filt = segmentation == label_index
         lab_int = lab_filt.astype(int)
@@ -86,23 +84,25 @@ def cli_predict_image():
     import argparse
 
     parser = argparse.ArgumentParser(description='Use this command to run inference.')
-    parser.add_argument('-i', type=str, required=True, help='Input folder.')
-    parser.add_argument('-o', type=str, required=True, help='Output folder.')
-
-    # Whether to post-process
-    # ...
-
+    parser.add_argument('-i', type=str, required=True, help='Input image. Must be either a TIF or a NIFTI image file.')
     args = parser.parse_args()
 
-    if not isdir(args.o):
-        maybe_mkdir_p(args.o)
-    
-    image = read_image(args.i)
+    input_image_file = args.i
+    image_ext = os.path.splitext(input_image_file)[-1]
+    if image_ext in ['tif', 'tiff']:
+        import tifffile
+        image = tifffile.imread(input_image_file)
+    elif image_ext in ['nii.gz', 'nii']:
+        import nibabel
+        image = nibabel.read_image(input_image_file)
+
+    # Assert some stuff about the image
+    # ...
 
     pred = predict(image)
     post = postprocess(pred)
 
-    save_pred(post, args.o)
+    save_pred(post, output_file_name)
 
 
 def cli_predict_folder():

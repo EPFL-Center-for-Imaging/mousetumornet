@@ -106,7 +106,6 @@ ENV/
 *.pdf
 *.jpg
 *.jpeg
-
 *.model
 
 tmp/**
@@ -115,8 +114,5 @@ results/**
 output/**
 bin/**
 models/**
-models-tmp/**
-
-src/scripts/.env
 
 .vscode/**

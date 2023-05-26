@@ -1,4 +1,8 @@
-# Lung tumor nodules segmentation in mice CT scans
+# 🫁 Lung tumor nodules segmentation in mice CT scans
+
+[![License BSD-3](https://img.shields.io/pypi/l/napari-label-focus.svg?color=green)](https://github.com/MalloryWittwer/napari-label-focus/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-label-focus.svg?color=green)](https://pypi.org/project/napari-label-focus)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-label-focus)](https://napari-hub.org/plugins/napari-label-focus)
 
 We provide a neural network model for lung tumor nodule segmentation in mice. The model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework which we used in the full resolution 3D configuration (3d_fullres).
 
@@ -10,9 +14,9 @@ To use this model in your own work, please check that your use case fulfills the
 
 ## Input data requirements
 
-Make sure that your input data is compatible with our model. Read [Input data requirements](documentation/data_requirements.md).
+Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_requirements.md).
 
-An example image is available for download at [link]().
+**Sample data:** An example image is available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif).
 
 ## Hardware requirements
 
@@ -25,7 +29,7 @@ We report the following runtimes for inference on our [example image]() size (..
 
 ## Installation
 
-We recommend performing the installation in a clean Python environment.
+We recommend performing the installation in a clean Python environment. If you are new to Python, read our [beginner's setup instructions](documentation/beginner_guide.md) guide to learn how to do that.
 
 The code requires `python>=3.9`, as well as `pytorch>=2.0`. 
 
@@ -45,7 +49,7 @@ pip install -e .
 
 ## Models
 
-The model weights (~230 MB) are automatically downloaded from Zenodo the first time you run inference. The model files get saved locally in the `models` subfolder.
+The model weights (~230 MB) are automatically downloaded from Zenodo the first time you run inference. The model files are saved in the user home folder in the `.nnunet` directory.
 
 Updated versions of the model trained on more annotated data are likely to be released in the future. As of June 2023, the available models are:
 
@@ -61,6 +65,8 @@ napari
 ```
 
 To open an image, use `File > Open files` or drag-and-drop an image into the viewer window. If you want to open medical image formats such as NIFTI directly, consider installing the [napari-medical-image-formats](https://pypi.org/project/napari-medical-image-formats/) plugin.
+
+**Sample data**: To test the model, you can run it on our provided sample image. In Napari, open the image from `File > Open Sample > Mouse lung CT scan`.
 
 Next, in the menu bar select `Plugins > mousetumornet > Tumor detection`. Run the model on your selected image by pressing the "Detect tumors" button.
 
@@ -97,6 +103,16 @@ In this case, use:
 nnUNetv2_predict -i input_folder -o output_folder
 ```
 
+## Usage from Docker
+
+- Install docker": [link]().
+
+Run:
+
+```
+docker run wittwer/mousetumornet -i path/to/input.tif
+```
+
 ## Usage recommendation
 
 For use in a scientific context, we believe the model outputs should be considered as an initial guess for the segmentation and not as a definitive result. Certain deviations in the the instrumentation, acquisition parameters, or morphology of the tumor nodules, among other things, can affect performance of the model. Therefore, the detections should always be reviewed by human experts and corrected when necessary.
@@ -114,6 +130,18 @@ The software is provided "as is", without warranty of any kind, express or impli
 ## Roadmap
 
 We are planning to further train...
+
+## FAQ
+
+- Can I fine-tune the model to my own data by further training it? No.
+
+## Contributing
+
+Contributions are very welcome. Tests can be run with [tox](), please ensure the coverage at least stays the same before you submit a pull request.
+
+## Issues
+
+If you encounter any problems, please file an issue along with a detailed description.
 
 ## License
 
