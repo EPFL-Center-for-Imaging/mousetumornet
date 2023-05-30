@@ -43,8 +43,8 @@ setup(
     entry_points={
         'napari.manifest': ['mousetumornet = mousetumornet:napari.yaml'],
         'console_scripts': [
-            'mtn_predict_image = mousetumornet.nnunet_predict:cli_predict_image',
-            'mtn_predict_folder = mousetumornet.nnunet_predict:cli_predict_folder',
+            'mtn_predict_image = mousetumornet.cli:cli_predict_image',
+            'mtn_predict_folder = mousetumornet.cli:cli_predict_folder',
         ],
     },
     keywords=['deep learning', 'image segmentation', 'nnU-Net', 'nnunet']
