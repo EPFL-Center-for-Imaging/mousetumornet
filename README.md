@@ -6,7 +6,10 @@
 
 We provide a neural network model for lung tumor nodule segmentation in mice. The model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework which we used in the full resolution 3D configuration (3d_fullres).
 
-![Introduction image](images/main_fig.png)
+
+<p align="center">
+    <img src="images/main_fig.png" height="400">
+</p>
 
 Our model is a tool intended to facilitate the annotation of individual lung tumor nodules in mouse CT scans. The U-net model outputs a binary mask representing the foreground tumor class. We then label individual nodule instances based on connected components.
 
@@ -75,7 +78,9 @@ To open an image, use `File > Open files` or drag-and-drop an image into the vie
 
 Next, in the menu bar select `Plugins > mousetumornet > Tumor detection`. Run the model on your selected image by pressing the "Detect tumors" button.
 
-![Napari screenshot](images/napari-screenshot.png)
+<p align="center">
+    <img src="images/napari-screenshot.png" height="400">
+</p>
 
 To inspect the results, you can bring in a table representing the detected objects from `Plugins > napari-label-focus > Data table`. Clicking on the data table rows will focus the viewer on the selected object.
 
