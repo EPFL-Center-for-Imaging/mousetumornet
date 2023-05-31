@@ -14,7 +14,9 @@ We've made this decision so that users would not have to provide spacing or pixe
 
 We tested the model on regions of interest (ROIs) in the lung parenchima area, which we have extracted from larger images. A ROI corresponds to the smallest crop that fully encompasses the lungs. While ROIs can be extracted manually, to build our datasets we have used a custom-built image processing script to detect and extract the ROIs automatically.
 
-![ROI illustration](../images/roi_demo.png)
+<p align="center">
+    <img src="../images/roi_demo.png" height="300">
+</p>
 
 ## Pixel size
 
@@ -31,7 +33,3 @@ We apply a quantile-based intensity normalization to each image independently as
 ## Image orientation
 
 The image axis order (ZYX, XYZ...) does not matter. We integrated random flipping, mirroring, and image transpose operations as augmentations during training, hence the model is capable of handling these variations.
-
-## (Optional) Automatic evaluation of the input data integrity
-
-Is that possible?

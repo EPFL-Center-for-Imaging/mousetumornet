@@ -6,7 +6,7 @@
 
 We provide a neural network model for lung tumor nodule segmentation in mice. The model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework which we used in the full resolution 3D configuration (3d_fullres).
 
-<div style="text-align:center"><img src="images/main_fig.png" height="400"></div>
+<!-- <div style="text-align:center"><img src="images/main_fig.png" height="400"></div> -->
 <p align="center">
     <img src="images/main_fig.png" height="400">
 </p>
@@ -15,10 +15,10 @@ Our model is a tool intended to facilitate the annotation of individual lung tum
 
 ## Try the model on your data
 
-- [Check the input data requirements]()
-- [Check the hardware requirements]()
-- [Install our package]()
-- [Follow our usage instructions]()
+- [Check the input data specifications](#input-data)
+- [Check the hardware requirements](#hardware-requirements)
+- [Install the package](#installation)
+- [Follow the usage instructions](#usage-in-napari)
 
 ## Input data
 
@@ -37,7 +37,7 @@ We report the following runtimes for inference on our [example image](), which h
 
 ## Installation
 
-We recommend performing the installation in a clean Python environment. If you are new to Python, read our [beginner's setup instructions](documentation/beginner_guide.md) guide to learn how to do that.
+We recommend performing the installation in a clean Python environment. If you are new to Python, read our [beginner's guide](documentation/beginner_guide.md) to learn how to do that.
 
 The code requires `python>=3.9`, as well as `pytorch>=2.0`. 
 
