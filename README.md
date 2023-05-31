@@ -21,16 +21,16 @@ Our model is a tool intended to facilitate the annotation of individual lung tum
 
 Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_requirements.md).
 
-**Sample data:** A few example images from our training dataset are available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif). *The full training set is also there.*
+**Sample data:** A few example images from our training dataset are available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif). *The full training set is also there. [??]*
 
 ## Hardware requirements
 
 Installing both PyTorch and TorchVision with CUDA support and using a modern GPU for inference is strongly recommended.
 
-We report the following runtimes for inference on our [example image](), which has a size of (...).
+We report the following runtimes for inference on our [example image](), which has a size of `177×297×320 px`.
 
-- GPU - RTX 3060 (12 GB RAM): 12 sec.
-- CPU: 68 sec.
+- GPU (RTX 3060, 12 GB RAM): **12 sec**.
+- CPU (AMD Ryzen 9 5900X (Zen 3, 64MB L3), 12 Threads): **68 sec**.
 
 ## Installation
 
