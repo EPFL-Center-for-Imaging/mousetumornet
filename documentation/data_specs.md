@@ -1,4 +1,4 @@
-# Input data requirements
+# Input data specifications
 
 ## Imaging modality and acquisition
 

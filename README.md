@@ -17,9 +17,9 @@ Our model is a tool intended to facilitate the annotation of individual lung tum
 - [Install our package]()
 - [Follow our usage instructions]()
 
-## Input data requirements
+## Input data
 
-Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_requirements.md).
+Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_specs.md).
 
 **Sample data:** A few example images from our training dataset are available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif). *The full training set is also there. [??]*
 
