@@ -9,25 +9,40 @@ from pooch import Unzip
 import scipy.ndimage as ndi
 import skimage.morphology
 
-from mousetumornet.configuration import MIN_SIZE_PX
+from mousetumornet.configuration import MIN_SIZE_PX, MODELS
 
-nnUNet_results = os.path.expanduser(
-    os.getenv(
-        "nnUNet_results", os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet")
-    )
-)
+# nnUNet_results = os.path.expanduser(
+#     os.getenv(
+#         "nnUNet_results", os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet")
+#     )
+# )
 
-os.environ["nnUNet_results"] = nnUNet_results
+# os.environ["nnUNet_results"] = nnUNet_results
 
-INPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_input")
-OUTPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_output")
+# INPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_input")
+# OUTPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_output")
 
-def predict(image: np.ndarray) -> np.ndarray:
+def predict(image: np.ndarray, model: str) -> np.ndarray:
     """TODO"""
 
+    model_url, model_known_hash = MODELS.get(model)
+
+    nnUNet_results = os.path.expanduser(os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet", model))
+
+    # nnUNet_results = os.path.expanduser(
+    #     os.getenv(
+    #         "nnUNet_results", os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet", model)
+    #     )
+    # )
+
+    os.environ["nnUNet_results"] = nnUNet_results
+
+    INPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_input")
+    OUTPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_output")
+
     pooch.retrieve(
-        url="https://sandbox.zenodo.org/record/1204918/files/nnunetv2_weights_fullres.zip",
-        known_hash="d26e446d7b95934c958f6a4cb23ced5399c636c599463ebe414d76474588d442",
+        url = model_url,
+        known_hash= model_known_hash,
         path=nnUNet_results,
         progressbar=True,
         processor=Unzip(extract_dir=nnUNet_results)

@@ -1,14 +1,15 @@
 from mousetumornet import predict
 import numpy as np
 
+from mousetumornet.configuration import MODELS
 
 def test_predict():
     """Runs the model prediction on a pseudo-image of random numbers."""
     image = np.random.random((256, 256, 256)).astype(np.float32)
 
-    pred = predict(image)
-
-    assert pred.shape == image.shape, "Pred shape is erroneous."
+    for model in MODELS.keys():
+        pred = predict(image, model=model)
+        assert pred.shape == image.shape, "Pred shape is erroneous."
 
 
 # from mousetumornet.napari_nnunet import NNUNetWidget

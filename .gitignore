@@ -116,3 +116,5 @@ bin/**
 models/**
 
 .vscode/**
+
+test.ipynb

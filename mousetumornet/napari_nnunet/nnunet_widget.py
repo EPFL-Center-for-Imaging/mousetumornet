@@ -22,6 +22,7 @@ sys.path.append(
 
 from nnunet_predict import predict, postprocess
 
+from mousetumornet.configuration import MODELS
 
 @register_dock_widget(menu="Detection > nnUNet")
 class NNUNetWidget(QWidget):
@@ -44,6 +45,16 @@ class NNUNetWidget(QWidget):
         self.cb_image = QComboBox()
         sub00.addWidget(self.cb_image)
 
+        qw01 = QWidget(self)
+        self.layout().addWidget(qw01)
+        sub01 = QHBoxLayout()
+        qw01.setLayout(sub01)
+        sub01.addWidget(QLabel("Model", self))
+        self.cb_models = QComboBox()
+        for model_name in MODELS.keys():
+            self.cb_models.addItem(model_name, model_name)
+        sub01.addWidget(self.cb_models)
+
         btn = QPushButton("Detect tumors", self)
         btn.clicked.connect(self._trigger_long_process)
         self.layout().addWidget(btn)
@@ -65,9 +76,9 @@ class NNUNetWidget(QWidget):
         self._on_layer_change(None)
 
     def long_process(self):
-        image = self.cb_image.currentData()
+        print(f'Using model: ', self.selected_model)
 
-        image_pred = predict(image)
+        image_pred = predict(self.selected_image, model=self.selected_model)
         image_pred = postprocess(image_pred)
 
         image_pred = image_pred.astype('uint16')
@@ -79,7 +90,12 @@ class NNUNetWidget(QWidget):
         self.segmentation = self.long_process()
 
     def _start_long_process(self):
-        if self.cb_image.currentData() is None:
+        self.selected_image = self.cb_image.currentData()
+        if self.selected_image is None:
+            return
+        
+        self.selected_model = self.cb_models.currentData()
+        if self.selected_model is None:
             return
 
         worker = self._long_process()
@@ -99,7 +115,7 @@ class NNUNetWidget(QWidget):
         self.pbar.setVisible(False)
 
         if self.segmentation is not None:
-            prob_layer = self.viewer.add_labels(self.segmentation, name="Tumors (nnUNet)")
+            prob_layer = self.viewer.add_labels(self.segmentation, name=f"Tumors (nnUNet) ({self.selected_model})")
             prob_layer.opacity = 0.2
             prob_layer.blending = "additive"
 
