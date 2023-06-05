@@ -11,7 +11,7 @@ We provide a neural network model for lung tumor nodule segmentation in mice. Th
     <img src="images/main_fig.png" height="400">
 </p>
 
-Our model is a tool intended to facilitate the annotation of individual lung tumor nodules in mouse CT scans. The U-net model outputs a binary mask representing the foreground tumor class. We then label individual nodule instances based on connected components.
+The goal of our tool is to facilitate the annotation of individual lung tumor nodules in mouse CT scans. The U-net model produces a binary mask representing the foreground tumor class. The tumor nodules are individually labeled based on the connected components method.
 
 ## Try the model on your data
 
@@ -20,17 +20,15 @@ Our model is a tool intended to facilitate the annotation of individual lung tum
 - [Install the package](#installation)
 - [Follow the usage instructions](#usage-in-napari)
 
-## Input data
+## Input data specifications
 
 Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_specs.md).
 
-**Sample data:** A few example images from our training dataset are available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif). *The full training set is also there. [??]*
+**Sample data:** (Option 1) A few example images from our training dataset are available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif). *(Option 2) The full training set. [??]*
 
 ## Hardware requirements
 
-Installing both PyTorch and TorchVision with CUDA support and using a modern GPU for inference is strongly recommended.
-
-We report the following runtimes for inference on our [example image](), which has a size of `177×297×320 px`.
+Installing PyTorch with CUDA support and using a GPU for inference is strongly recommended. We report the following runtimes for inference on a GPU and CPU, respectively:
 
 - GPU (RTX 3060, 12 GB RAM): **12 sec**.
 - CPU (AMD Ryzen 9 5900X (Zen 3, 64MB L3), 12 Threads): **68 sec**.
@@ -39,9 +37,9 @@ We report the following runtimes for inference on our [example image](), which h
 
 We recommend performing the installation in a clean Python environment. If you are new to Python, read our [beginner's guide](documentation/beginner_guide.md) to learn how to do that.
 
-The code requires `python>=3.9`, as well as `pytorch>=2.0`. 
+The code requires `python>=3.9`, as well as `pytorch>=2.0`. If wish to use a GPU with CUDA support, you may want to install Pytorch first and separately following the instructions for your platform on [pytorch.org](https://pytorch.org/get-started/locally/).
 
-Install from the repository:
+Install `mousetumornet` from the repository:
 
 ```
 pip install git+https://gitlab.epfl.ch/center-for-imaging/mousetumornet.git
@@ -59,10 +57,13 @@ pip install -e .
 
 The model weights (~461 MB) are automatically downloaded from Zenodo the first time you run inference. The model files are saved in the user home folder in the `.nnunet` directory.
 
-Updated versions of the model trained on more annotated data are likely to be released in the future. As of June 2023, the available models are:
+New versions of the model, trained on more annotated data, faster, or more performant, are to be released in the future. As of June 2023, the available models are:
 
-- Model-v1.0
-- Model-v2.0
+- [Model-v1.0]() | Accuracy | Training images | Name (v1)
+- [Model-v2.0]() | Accuracy | Training images | Name (v2)
+
+These models are all available for use in our package and can be selected by the user (see [Usage](#usage-in-napari)).
+
 
 ## Usage in Napari
 
@@ -76,7 +77,7 @@ To open an image, use `File > Open files` or drag-and-drop an image into the vie
 
 **Sample data**: To test the model, you can run it on our provided sample image. In Napari, open the image from `File > Open Sample > Mouse lung CT scan`.
 
-Next, in the menu bar select `Plugins > mousetumornet > Tumor detection`. Run the model on your selected image by pressing the "Detect tumors" button.
+Next, in the menu bar select `Plugins > mousetumornet > Tumor detection`. Select a [model](#models) and run it on your selected image by pressing the "Detect tumors" button.
 
 <p align="center">
     <img src="images/napari-screenshot.png" height="400">
@@ -86,12 +87,12 @@ To inspect the results, you can bring in a table representing the detected objec
 
 ## Usage as a library
 
-You can use the model in just a few lines of code to produce a segmentation mask from an image (represented as a numpy array).
+You can run a model (`v1` in the example below) in just a few lines of code to produce a segmentation mask from an image (represented as a numpy array).
 
 ```
 from mousetumornet import predict, postprocess
 
-binary_mask = predict(your_image)
+binary_mask = predict(your_image, model='v1')
 instances_mask = postprocess(binary_mask)
 ```
 
@@ -100,9 +101,12 @@ instances_mask = postprocess(binary_mask)
 Run inference on an image from the command-line. For example:
 
 ```
-mtn_predict_image -i /path/to/folder/image_001.tif/
+mtn_predict_image -i /path/to/folder/image_001.tif/ -m <model_name>
 ```
-Will save a mask next to the image:
+
+The `<model_name>` should be in the [model list](#models), for example `v1`.
+
+The command will save a mask next to the image:
 ```
 folder/
     ├── image_001.tif
@@ -112,7 +116,7 @@ folder/
 Run inference in batch on all images in a folder:
 
 ```
-mtn_predict_folder -i /path/to/folder/
+mtn_predict_folder -i /path/to/folder/ -m <model_name>
 ```
 Will produce:
 ```
@@ -139,7 +143,7 @@ For use in a scientific context, we believe the model outputs should be consider
 
 ## Dataset
 
-Our model was trained on 493 images from Y separate experiments and validated on 97 images. The data was annotated by Z independent experts from Prof. De Palma's lab in EPFL. The images were acquired over a period of about 12 months using two different CT scanners. In this dataset, we report a dice score performance of 0.63 on the validation images.
+Our latest model was trained on `493` images from Y separate experiments and validated on 97 images. The data was annotated by Z independent experts from Prof. De Palma's lab in EPFL. The images were acquired over a period of about 12 months using two different CT scanners. In this dataset, we report a dice score performance of 0.63 on the validation images.
 
 The dataset is avaiable for download on [Zenodo](). By downlodading the dataset you agree that you have read and accepted the terms of the [dataset license]().
 
@@ -147,13 +151,6 @@ The dataset is avaiable for download on [Zenodo](). By downlodading the dataset 
 
 The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
 
-## Roadmap
-
-We are planning to further train...
-
-## FAQ
-
-- Can I fine-tune the model to my own data by further training it? No.
 
 ## Contributing
 

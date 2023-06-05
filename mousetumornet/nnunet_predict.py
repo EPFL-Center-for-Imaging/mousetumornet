@@ -11,16 +11,9 @@ import skimage.morphology
 
 from mousetumornet.configuration import MIN_SIZE_PX, MODELS
 
-# nnUNet_results = os.path.expanduser(
-#     os.getenv(
-#         "nnUNet_results", os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet")
-#     )
-# )
+import torch
 
-# os.environ["nnUNet_results"] = nnUNet_results
-
-# INPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_input")
-# OUTPUT_FOLDER = os.path.join(nnUNet_results, "tmp", "nnunet_output")
+DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def predict(image: np.ndarray, model: str) -> np.ndarray:
     """TODO"""
@@ -28,12 +21,6 @@ def predict(image: np.ndarray, model: str) -> np.ndarray:
     model_url, model_known_hash = MODELS.get(model)
 
     nnUNet_results = os.path.expanduser(os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet", model))
-
-    # nnUNet_results = os.path.expanduser(
-    #     os.getenv(
-    #         "nnUNet_results", os.path.join(os.getenv("XDG_DATA_HOME", "~"), ".nnunet", model)
-    #     )
-    # )
 
     os.environ["nnUNet_results"] = nnUNet_results
 
@@ -60,8 +47,7 @@ def predict(image: np.ndarray, model: str) -> np.ndarray:
         "-d", "001",
         "-f", "0",
         "-c", "3d_fullres",
-        "-device", "cuda",
-        # "-device", "cpu",
+        "-device", DEVICE,
         "--disable_tta"
     ])
 
