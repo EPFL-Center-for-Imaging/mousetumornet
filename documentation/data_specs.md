@@ -8,23 +8,31 @@ We used two different CT scanners to produce training images.
 
 ## Region of interest
 
-Our model requires to provide as input image only the region of interest (ROI) surrounding the lungs parenchima. This volume gets resampled to a size of 256 x 256 x 256 pixels as preprocessing.
+The input image to our model should be a 3D region of interest (ROI) covering the lungs parenchima. This volume gets resampled to a size of 256 x 256 x 256 pixels as preprocessing. If necessary, the ROIs should be cropped out from larger images so that they correspond to a volume that closely, but fully, encompasses the lungs.
 
-We've made this decision so that users would not have to provide spacing or pixel size values to the model; only an image that covers the anatomical region of interest. Moreover, by standardizing the input image size, inference time is the same regardless of the pixel resolution of the scans.
-
-We tested the model on regions of interest (ROIs) in the lung parenchima area, which we have extracted from larger images. A ROI corresponds to the smallest crop that fully encompasses the lungs. While ROIs can be extracted manually, to build our datasets we have used a custom-built image processing script to detect and extract the ROIs automatically.
+Here is an example:
 
 <p align="center">
     <img src="../images/roi_demo.png" height="300">
 </p>
 
+The ROIs can be extracted manually or automatically using image processing. [TODO] As an example, we provide a script `mtn_extract_roi` that uses intensity thresholding to extract regions of interest.
+
+```
+mtn_extract_roi -i /path/to/image.tif
+```
+
+This will save a ROI image in the folder.
+
+```
+folder/
+    ├── image.tif
+    ├── image_roi.tif
+```
+
 ## Pixel size
 
-Our model can accomodate different images of different pixel sizes.
-
-(Updated) What matters is that the input image covers the bounding box of the lungs. The images get rescaled to a fixed size during preprocessing.
-
-(Outdated) The minimum size should be (128 x 128 x 128) pixels, which is the size of the neural network receptive field. Bigger images are processed in tiles. At the scan resolution used for training the model (which is [xxx]), the size of ROIs around the lungs is about (300 x 300 x 300) pixels.
+As the images get rescaled to a fixed size during preprocessing, our model can accomodate different images of different pixel sizes. What matters is that the ROI is selected correctly, so that the input image covers the bounding box of the lungs.
 
 ## Intensity normalization
 

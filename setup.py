@@ -44,6 +44,7 @@ setup(
         'console_scripts': [
             'mtn_predict_image = mousetumornet.cli:cli_predict_image',
             'mtn_predict_folder = mousetumornet.cli:cli_predict_folder',
+            'mtn_extract_roi = mousetumornet.cli:cli_extract_roi',
         ],
     },
     keywords=['deep learning', 'image segmentation', 'nnU-Net', 'nnunet']

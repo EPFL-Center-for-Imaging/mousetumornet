@@ -5,8 +5,9 @@ import argparse
 import glob
 
 from mousetumornet.configuration import MODELS
+from mousetumornet.roi import compute_roi
 
-def process_input_file(input_image_file, model):
+def process_input_file_predict(input_image_file, model):
     image = tifffile.imread(input_image_file)
 
     # (TODO) Assert some stuff about the image
@@ -35,7 +36,7 @@ def cli_predict_image():
 
     assert model in MODELS.keys(), f'Your model {model} is not available. Choose from: {list(MODELS.keys())}'
 
-    process_input_file(input_image_file, model)
+    process_input_file_predict(input_image_file, model)
 
 
 def cli_predict_folder():
@@ -50,4 +51,30 @@ def cli_predict_folder():
     assert model in MODELS.keys(), f'Your model {model} is not available. Choose from: {list(MODELS.keys())}'
 
     for input_image_file in glob.glob(str(Path(input_folder) / '*.tif')):
-        process_input_file(input_image_file, model)
+        process_input_file_predict(input_image_file, model)
+
+
+def process_input_file_extract_roi(input_image_file):
+
+    image = tifffile.imread(input_image_file)
+
+    *_, roi = compute_roi(img=image)
+
+    pt = Path(input_image_file)
+    out_file_name = pt.parent / f'{pt.stem}_roi.tif'
+
+    tifffile.imwrite(out_file_name, roi)
+    print('Wrote to ', out_file_name)
+
+
+def cli_extract_roi():
+    """Command-line entry point for roi extraction."""
+    parser = argparse.ArgumentParser(description='Use this command to run inference.')
+    parser.add_argument('-i', type=str, required=True, help='Input image. Must be either a TIF or a NIFTI image file.')
+    args = parser.parse_args()
+
+    input_image_file = args.i
+
+    process_input_file_extract_roi(input_image_file)
+
+    
