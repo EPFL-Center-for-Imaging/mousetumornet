@@ -17,7 +17,7 @@ setup(
     author='Center for Imaging, Ecole Polytechnique Federale de Lausanne (EPFL)',
     author_email='mallory.wittwer@epfl.ch',
     license='BSD 3-Clause License',
-    python_requires=">3.7, <3.11",
+    python_requires=">3.9, <3.11",
     classifiers=[
         "Intended Audience :: Science/Research",
         "Topic :: Scientific/Engineering",
@@ -27,12 +27,11 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
-        "Framework :: napari",
+        # "Framework :: napari",
     ],
     install_requires=[
         "nnunetv2 @ git+https://github.com/MalloryWittwer/nnUNet.git",
-        "napari-label-focus",
-        "napari[all]>=0.4.16", 
+        "napari-label-focus==0.0.2",
         "napari-tools-menu",
         "napari-workflows",
         "pooch"

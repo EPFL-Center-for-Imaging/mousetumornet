@@ -127,16 +127,6 @@ folder/
     ├── image_002_mask.tif
 ```
 
-## Usage from Docker
-
-- Install docker": [link]().
-
-Run:
-
-```
-docker run wittwer/mousetumornet -i path/to/input.tif
-```
-
 ## Usage recommendation
 
 For use in a scientific context, we believe the model outputs should be considered as an initial guess for the segmentation and not as a definitive result. Certain deviations in the the instrumentation, acquisition parameters, or morphology of the tumor nodules, among other things, can affect performance of the model. Therefore, the detections should always be reviewed by human experts and corrected when necessary.
@@ -146,11 +136,6 @@ For use in a scientific context, we believe the model outputs should be consider
 Our latest model was trained on `493` images from Y separate experiments and validated on 97 images. The data was annotated by Z independent experts from Prof. De Palma's lab in EPFL. The images were acquired over a period of about 12 months using two different CT scanners. In this dataset, we report a dice score performance of 0.63 on the validation images.
 
 The dataset is avaiable for download on [Zenodo](). By downlodading the dataset you agree that you have read and accepted the terms of the [dataset license]().
-
-## Disclaimer
-
-The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
-
 
 ## Contributing
 
