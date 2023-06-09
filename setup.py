@@ -30,7 +30,7 @@ setup(
     ],
     install_requires=[
         "nnunetv2 @ git+https://github.com/MalloryWittwer/nnUNet.git",
-        "napari-label-focus==0.0.2",
+        "napari-label-focus",
         "napari-tools-menu",
         "napari-workflows",
         "pooch"
