@@ -11,4 +11,4 @@ contributions:
   sample_data:
   - key: lung_ct
     display_name: Mouse lung CT scan
-    uri: https://sandbox.zenodo.org/record/1205983/files/1493.tif
+    uri: https://zenodo.org/record/8099852/files/lungs_ct.tif
