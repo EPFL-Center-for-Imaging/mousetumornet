@@ -29,10 +29,10 @@ setup(
         # "Framework :: napari",
     ],
     install_requires=[
-        "nnunetv2 @ git+https://github.com/MalloryWittwer/nnUNet.git",
+        # "nnunetv2 @ git+https://github.com/MalloryWittwer/nnUNet.git",
+        # "nnunetv2 @ git+https://github.com/MalloryWittwer/nnUNet.git",
+        "nnunetv2",
         "napari-label-focus",
-        "napari-tools-menu",
-        "napari-workflows",
         "pooch"
     ],
     extras_require={

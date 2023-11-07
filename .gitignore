@@ -114,7 +114,6 @@ results/**
 output/**
 bin/**
 models/**
+notebooks/
 
 .vscode/**
-
-test.ipynb
