@@ -1,12 +1,7 @@
 # 🫁 Lung tumor nodules segmentation in mice CT scans
 
-[![License BSD-3](https://img.shields.io/pypi/l/napari-label-focus.svg?color=green)](https://github.com/MalloryWittwer/napari-label-focus/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-label-focus.svg?color=green)](https://pypi.org/project/napari-label-focus)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-label-focus)](https://napari-hub.org/plugins/napari-label-focus)
-
 We provide a neural network model for lung tumor nodule segmentation in mice. The model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework which we used in the full resolution 3D configuration (3d_fullres).
 
-<!-- <div style="text-align:center"><img src="images/main_fig.png" height="400"></div> -->
 <p align="center">
     <img src="images/main_fig.png" height="400">
 </p>
@@ -39,10 +34,10 @@ We recommend performing the installation in a clean Python environment. If you a
 
 The code requires `python>=3.9`, as well as `pytorch>=2.0`. If wish to use a GPU with CUDA support, you may want to install Pytorch first and separately following the instructions for your platform on [pytorch.org](https://pytorch.org/get-started/locally/).
 
-Install `mousetumornet` from the repository:
+Install `mousetumornet` using *pip*:
 
 ```
-pip install git+https://gitlab.epfl.ch/center-for-imaging/mousetumornet.git
+pip install mousetumornet
 ```
 
 or clone the repository and install with:
@@ -57,10 +52,11 @@ pip install -e .
 
 The model weights (~461 MB) are automatically downloaded from Zenodo the first time you run inference. The model files are saved in the user home folder in the `.nnunet` directory.
 
-New versions of the model, trained on more annotated data, faster, or more performant, are to be released in the future. As of June 2023, the available models are:
+New versions of the model, trained on more annotated data, faster, or more performant, are to be released in the future. As of November 2023, the available models are:
 
-- [Model-v1.0]() | Accuracy | Training images | Name (v1)
-- [Model-v2.0]() | Accuracy | Training images | Name (v2)
+<!-- - [Model-v1.0]() | Accuracy | Training images | Name (v1)
+- [Model-v2.0]() | Accuracy | Training images | Name (v2) -->
+- [Model-v42](https://zenodo.org/records/10074441)
 
 These models are all available for use in our package and can be selected by the user (see [Usage](#usage-in-napari)).
 
@@ -104,7 +100,7 @@ Run inference on an image from the command-line. For example:
 mtn_predict_image -i /path/to/folder/image_001.tif/ -m <model_name>
 ```
 
-The `<model_name>` should be in the [model list](#models), for example `v1`.
+The `<model_name>` should be in the [model list](#models), for example `v42`.
 
 The command will save a mask next to the image:
 ```
@@ -133,13 +129,13 @@ For use in a scientific context, we believe the model outputs should be consider
 
 ## Dataset
 
-Our latest model was trained on `493` images from Y separate experiments and validated on 97 images. The data was annotated by Z independent experts from Prof. De Palma's lab in EPFL. The images were acquired over a period of about 12 months using two different CT scanners. In this dataset, we report a dice score performance of 0.63 on the validation images.
+Our latest model was trained using a dataset of `402` images coming from 17 different experiments and validated on 101 images. Four experts from Prof. De Palma's lab in EPFL participated in the data annotation. The images were acquired over a period of about 18 months using two different CT scanners. In this dataset, we report a dice score performance of around 0.63 on the validation images.
 
-The dataset is avaiable for download on [Zenodo](). By downlodading the dataset you agree that you have read and accepted the terms of the [dataset license]().
+<!-- The dataset is avaiable for download on [Zenodo](). By downlodading the dataset you agree that you have read and accepted the terms of the [dataset license](). -->
 
 ## Contributing
 
-Contributions are very welcome. Tests can be run with [tox](), please ensure the coverage at least stays the same before you submit a pull request.
+Contributions are very welcome. Please get in touch if you'd like to be involved in improving or extending the package.
 
 ## Issues
 
@@ -153,10 +149,10 @@ This model is licensed under the [BSD-3](LICENSE.txt) license.
 
 As per the online tool [*Green algorithms*](http://calculator.green-algorithms.org/), the footprint of training the mouse tumor net model was estimated to be 105 g CO2e.
 
-## Citing
+<!-- ## Citing
 
 Please use the following BibTeX entry to cite this project:
 
 ```
 article
-```
+``` -->
