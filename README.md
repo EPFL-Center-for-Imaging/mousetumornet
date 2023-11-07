@@ -34,7 +34,7 @@ We recommend performing the installation in a clean Python environment. If you a
 
 The code requires `python>=3.9`, as well as `pytorch>=2.0`. If wish to use a GPU with CUDA support, you may want to install Pytorch first and separately following the instructions for your platform on [pytorch.org](https://pytorch.org/get-started/locally/).
 
-Install `mousetumornet` using *pip*:
+Install `mousetumornet` using *pip* after you've installed Pytorch:
 
 ```
 pip install mousetumornet
