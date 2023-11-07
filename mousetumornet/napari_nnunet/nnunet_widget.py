@@ -44,7 +44,7 @@ class NNUNetWidget(QWidget):
         self.cb_models.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         for model_name in MODELS.keys():
             self.cb_models.addItem(model_name, model_name)
-        grid_layout.addWidget(QLabel("Mask (Labels, optional)", self), 1, 0)
+        grid_layout.addWidget(QLabel("Model", self), 1, 0)
         grid_layout.addWidget(self.cb_models, 1, 1)
 
         # Compute button
