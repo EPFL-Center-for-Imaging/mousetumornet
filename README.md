@@ -19,8 +19,6 @@ The goal of our tool is to facilitate the annotation of individual lung tumor no
 
 Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_specs.md).
 
-**Sample data:** (Option 1) A few example images from our training dataset are available for download on [Zenodo](https://sandbox.zenodo.org/record/1205983/files/1493.tif). *(Option 2) The full training set. [??]*
-
 ## Hardware requirements
 
 Installing PyTorch with CUDA support and using a GPU for inference is strongly recommended. We report the following runtimes for inference on a GPU and CPU, respectively:
