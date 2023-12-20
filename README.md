@@ -1,3 +1,7 @@
+<p align="right" style="background-color: #f1f1f1; box-shadow: 2px; padding: 20px;">
+    <img src="images/custom_logo.png" width="120">
+</p>
+
 # 🫁 Lung tumor nodules segmentation in mice CT scans
 
 We provide a neural network model for lung tumor nodule segmentation in mice. The model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework which we used in the full resolution 3D configuration (3d_fullres).

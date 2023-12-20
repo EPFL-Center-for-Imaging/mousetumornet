@@ -70,7 +70,7 @@ def process_input_file_extract_roi(input_image_file):
 def cli_extract_roi():
     """Command-line entry point for roi extraction."""
     parser = argparse.ArgumentParser(description='Use this command to run inference.')
-    parser.add_argument('-i', type=str, required=True, help='Input image. Must be either a TIF or a NIFTI image file.')
+    parser.add_argument('-i', type=str, required=True, help='Input image. Must be a TIF file.')
     args = parser.parse_args()
 
     input_image_file = args.i
