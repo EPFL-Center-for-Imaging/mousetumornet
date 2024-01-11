@@ -1,10 +1,4 @@
-<!-- <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-    <h1>🫁 Lung tumor nodules segmentation in mice CT scans </h1>
-    <div align="right" style="background-color: #f1f1f1; box-shadow: 2px; padding: 20px;">
-        <img src="images/custom_logo.png" width="120">
-    </div>
-</div> -->
-
+![EPFL Center for Imaging logo](https://imaging.epfl.ch/resources/logo-for-gitlab.svg)
 # 🫁 Lung tumor nodules segmentation in mice CT scans
 
 We provide a neural network model for lung tumor nodule segmentation in mice. The model is based on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) framework which we used in the full resolution 3D configuration (3d_fullres).
