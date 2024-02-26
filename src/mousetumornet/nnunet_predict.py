@@ -48,6 +48,7 @@ def predict(image: np.ndarray, model: str) -> np.ndarray:
         "-f", "0",
         "-c", "3d_fullres",
         "-device", DEVICE,
+        "-nps", "1"
         "--disable_tta"
     ])
 
