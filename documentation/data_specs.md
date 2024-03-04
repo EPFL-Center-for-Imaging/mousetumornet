@@ -1,11 +1,5 @@
 # Input data specifications
 
-## Imaging modality and acquisition
-
-We used two different CT scanners to produce training images.
-
-*The voxel resolution was [...] and [Other specs]*.
-
 ## Region of interest
 
 The input image to our model should be a 3D region of interest (ROI) covering the lungs parenchima. This volume gets resampled to a size of 256 x 256 x 256 pixels as preprocessing. If necessary, the ROIs should be cropped out from larger images so that they correspond to a volume that closely, but fully, encompasses the lungs.

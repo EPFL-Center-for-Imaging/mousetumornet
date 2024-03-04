@@ -9,20 +9,18 @@ We provide a neural network model for lung tumor nodule segmentation in mice. Th
 
 The goal of our tool is to facilitate the annotation of individual lung tumor nodules in mouse CT scans. The U-net model produces a binary mask representing the foreground tumor class. The tumor nodules are individually labeled based on the connected components method.
 
-## Try the model on your data
-
-- [Check the input data specifications](#input-data)
-- [Check the hardware requirements](#hardware-requirements)
-- [Install the package](#installation)
-- [Follow the usage instructions](#usage-in-napari)
+- [Input data specifications](#input-data)
+- [Hardware requirements](#hardware-requirements)
+- [Installation](#installation)
+- [Usage](#usage-in-napari)
 
 ## Input data specifications
 
-Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data requirements](documentation/data_specs.md).
+Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data specifications](documentation/data_specs.md).
 
 ## Hardware requirements
 
-Installing PyTorch with CUDA support and using a GPU for inference is strongly recommended. We report the following runtimes for inference on a GPU and CPU, respectively:
+Installing PyTorch with CUDA support and using a GPU for inference is strongly recommended. We report the following runtimes for inference on GPU and CPU, respectively:
 
 - GPU (RTX 3060, 12 GB RAM): **12 sec**.
 - CPU (AMD Ryzen 9 5900X (Zen 3, 64MB L3), 12 Threads): **68 sec**.
