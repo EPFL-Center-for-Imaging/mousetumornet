@@ -90,3 +90,29 @@ def compute_roi(img: np.ndarray):
     roi = img[x0:x1, y0:y1, z0:z1]
 
     return df, lungs_bbox_data, body, roi
+
+
+def compute_roi_bones(img: np.ndarray):
+    """Computes a ROI encompassing the bones in the image - based on quantiles."""
+    bones = (img > np.quantile(img, 0.99)).astype(np.uint8)
+    if bones.sum() == 0:
+        print("It looks like no bones were segmented.")
+        x0 = 0
+        y0 = 0
+        z0 = 0
+        x1, y1, z1 = img.shape
+    else:
+        props = regionprops_table(bones, properties=["bbox"])
+        
+        df = pd.DataFrame(props)
+
+        x0 = int(df["bbox-0"].values[0])
+        x1 = int(df["bbox-3"].values[0])
+        y0 = int(df["bbox-1"].values[0])
+        y1 = int(df["bbox-4"].values[0])
+        z0 = int(df["bbox-2"].values[0])
+        z1 = int(df["bbox-5"].values[0])
+
+    roi = img[x0:x1, y0:y1, z0:z1]
+
+    return df, roi, bones, roi

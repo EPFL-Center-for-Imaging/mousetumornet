@@ -5,9 +5,14 @@ contributions:
     - id: mousetumornet.predict
       title: Lung tumor detection
       python_name: mousetumornet.napari_nnunet:NNUNetWidget
+    - id: mousetumornet.roi
+      title: ROI detection
+      python_name: mousetumornet.roi_widget:RoiWidget
   widgets:
     - command: mousetumornet.predict
       display_name: Lung tumor detection
+    - command: mousetumornet.roi
+      display_name: ROI detection
   sample_data:
   - key: lung_ct
     display_name: Mouse lung CT scan
