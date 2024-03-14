@@ -92,9 +92,9 @@ def compute_roi(img: np.ndarray):
     return df, lungs_bbox_data, body, roi
 
 
-def compute_roi_bones(img: np.ndarray):
+def compute_roi_bones(img: np.ndarray, q=0.99):
     """Computes a ROI encompassing the bones in the image - based on quantiles."""
-    bones = (img > np.quantile(img, 0.99)).astype(np.uint8)
+    bones = (img > np.quantile(img, q)).astype(np.uint8)
     if bones.sum() == 0:
         print("It looks like no bones were segmented.")
         x0 = 0
