@@ -142,7 +142,9 @@ If you encounter any problems, please file an issue along with a detailed descri
 
 ## License
 
-This model is licensed under the [BSD-3](LICENSE.txt) license.
+This project is licensed under the [BSD-3](LICENSE.txt) license.
+
+This project depends on the [nnUNet](https://github.com/MIC-DKFZ/nnUNet) library which is licensed under Apache-2.0.
 
 ## Carbon footprint of this project
 
