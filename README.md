@@ -14,6 +14,8 @@ The goal of our tool is to facilitate the annotation of individual lung tumor no
 - [Installation](#installation)
 - [Usage](#usage-in-napari)
 
+This project is part of a collaboration between the [EPFL Center for Imaging](https://imaging.epfl.ch/) and the [De Palma Lab](https://www.epfl.ch/labs/depalma-lab/).
+
 ## Input data specifications
 
 Make sure that your input data is compatible with our model. To check the integrity of your input data, read [Input data specifications](documentation/data_specs.md).
@@ -153,3 +155,8 @@ Please use the following BibTeX entry to cite this project:
 ```
 article
 ``` -->
+
+## Related projects
+
+- [Mouse Lungs Seg](https://github.com/EPFL-Center-for-Imaging/mouselungseg) | Detect the lungs cavity in mice CT scans.
+- [Mouse Tumor Track](https://github.com/EPFL-Center-for-Imaging/mousetumortrack) | Track tumor nodules in mice CT scans.
